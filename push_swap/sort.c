@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:57:10 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/02 20:49:05 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/06 15:10:20 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,45 @@ int	stack_size(t_stack *head)
 	return (size);
 }
 
-int	move_count(t_stack *stack_a, t_stack *stack_b, int id)
-{
-	int	size;
-	int	cnt;
-	int	id_b;
+// int	stack_a_cost(t_stack *stack_a, t_stack *stack_b)
+// {
+// 	int		i;
+// 	int		size;
+// 	t_stack	*node_a;
+// 	t_stack	*node_b;
 
-	id_b = 0;
-	size = stack_size(stack_a);
-	if ((size - 1) - id > id)
-		cnt = id;
-	else
-		cnt = (size - 1 - id);
-	if (((stack_a->data) >= (stack_b->data))
-		|| (stack_a->data) <= (stack_b->prev)->data)
-		return (cnt);
-	size = stack_size(stack_b);
-	while ((stack_a->data) < (stack_b->data))
-	{
-		id_b++;
-		stack_b = stack_b->next;
-	}
-	if ((size - 1 - id_b) > id_b)
-		return (cnt + id_b);
-	else
-		return (cnt + (size - 1 - id_b));
-}
+// 	node_a = stack_a;
+// 	node_b = stack_b;
+// 	size = stack_size(node_a);
+// 	i = 0;
+// 	while (i < size)
+// 	{
+// 		while ()
+// 	}
+// }
+// int	move_count(t_stack *stack_a, t_stack *stack_b, int id)
+// {
+// 	int	size;
+// 	int	cnt;
+// 	int	id_b;
+
+// 	id_b = 0;
+// 	size = stack_size(stack_a);
+// 	if ((size - 1) - id > id)
+// 		cnt = id;
+// 	else
+// 		cnt = (size - 1 - id);
+// 	if (((stack_a->data) >= (stack_b->data))
+// 		|| (stack_a->data) <= (stack_b->prev)->data)
+// 		return (cnt);
+// 	size = stack_size(stack_b);
+// 	while ((stack_a->data) < (stack_b->data))
+// 	{
+// 		id_b++;
+// 		stack_b = stack_b->next;
+// 	}
+// 	if ((size - 1 - id_b) > id_b)
+// 		return (cnt + id_b);
+// 	else
+// 		return (cnt + (size - 1 - id_b));
+// }

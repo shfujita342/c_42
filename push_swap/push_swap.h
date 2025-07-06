@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 13:00:45 by shfujita          #+#    #+#             */
-/*   Updated: 2025/06/24 12:45:51 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/05 19:01:25 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_stack
 {
 	int				data;
+	int				cost;
 	struct s_stack	*prev;
 	struct s_stack	*next;
 	int				size;

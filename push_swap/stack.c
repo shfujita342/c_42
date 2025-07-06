@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:13:40 by shfujita          #+#    #+#             */
-/*   Updated: 2025/06/24 11:47:52 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/05 19:01:33 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,29 +20,26 @@ t_stack	*create_node(int value)
 	if (!node)
 		return (NULL);
 	node->data = value;
-	node->next = NULL;
-	node->prev = node->next;
+	node->cost = 0;
+	node->next = node;
+	node->prev = node;
 	return (node);
 }
 
-void	insert_node(int value, t_stack **head)
+void	push_node(int value, t_stack **head)
 {
 	t_stack	*node;
 	t_stack	*tail;
 
 	node = create_node(value);
 	if (!node)
-		return (NULL);
-	if (!head)
-	{
+		return ;
+	if (!*head)
 		*head = node;
-		(*head)->next = node;
-		(*head)->prev = node;
-	}
 	else
 	{
 		tail = (*head)->prev;
-		node->next = head;
+		node->next = *head;
 		node->prev = tail;
 		(*head)->prev = node;
 		tail->next = node;

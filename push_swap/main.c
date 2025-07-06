@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/06/25 19:41:33 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/05 19:03:28 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,16 @@ static t_stack	*set_stack_a(int argc, char **argv, t_stack *head)
 	return (head);
 }
 
-static t_stack	*set_stack_b(t_stack *stack_a, t_stack *stack_b)
-{
-	if (!stack_a || stack_a->next == stack_a)
-		return (NULL);
-	push(stack_a, stack_b, 'b');
-	push(stack_a, stack_b, 'b');
-	if ((stack_b->data) < (stack_b->next->data))
-		swap(stack_b, 'b');
-	return (stack_b);
-}
+// static t_stack	*set_stack_b(t_stack *stack_a, t_stack *stack_b)
+// {
+// 	if (!stack_a || stack_a->next == stack_a)
+// 		return (NULL);
+// 	push(stack_a, stack_b, 'b');
+// 	push(stack_a, stack_b, 'b');
+// 	if ((stack_b->data) < (stack_b->next->data))
+// 		swap(stack_b, 'b');
+// 	return (stack_b);
+// }
 
 int	main(int argc, char *argv[])
 {
@@ -55,5 +55,9 @@ int	main(int argc, char *argv[])
 	{
 		write(1, "Error\n", 6);
 		return (1);
+	}
+	while (stack_size(stack_a) > 3)
+	{
+		sort_stack(stack_a);
 	}
 }
