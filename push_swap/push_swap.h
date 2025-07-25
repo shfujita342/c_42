@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 13:00:45 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/05 19:01:25 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/25 13:31:19 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@
 typedef struct s_stack
 {
 	int				data;
-	int				cost;
+	int				index;
+	int				cost_a;
+	int				cost_b;
+	int				total_cost;
 	struct s_stack	*prev;
 	struct s_stack	*next;
-	int				size;
 }					t_stack;
 
 typedef struct s_size
@@ -31,6 +33,13 @@ typedef struct s_size
 	int				size_a;
 	int				size_b;
 }					t_size;
+
+typedef struct s_min_cost
+{
+	int				cost;
+	int				a;
+	int				b;
+}					t_min_cost;
 
 t_stack				*create_node(int value);
 void				delete_node(t_stack *node, t_stack *head);

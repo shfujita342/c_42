@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/24 11:57:10 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/06 15:10:20 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/25 14:56:14 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,45 +31,86 @@ int	stack_size(t_stack *head)
 	return (size);
 }
 
-// int	stack_a_cost(t_stack *stack_a, t_stack *stack_b)
-// {
-// 	int		i;
-// 	int		size;
-// 	t_stack	*node_a;
-// 	t_stack	*node_b;
+int	rotation_cost(int index, int size)
+{
+	if (index <= size / 2)
+		return (index);
+	else
+		return (-(index - size));
+}
 
-// 	node_a = stack_a;
-// 	node_b = stack_b;
-// 	size = stack_size(node_a);
-// 	i = 0;
-// 	while (i < size)
-// 	{
-// 		while ()
-// 	}
-// }
-// int	move_count(t_stack *stack_a, t_stack *stack_b, int id)
-// {
-// 	int	size;
-// 	int	cnt;
-// 	int	id_b;
+int	total_cost(int cost_a, int cost_b)
+{
+	if (cost_a == cost_b)
+	{
+		if (cost_a < 0)
+		{
+			cost_a *= -1;
+			cost_b *= -1;
+		}
+		if (cost_a > cost_b)
+			return (cost_a);
+		else
+			return (cost_b);
+	}
+	else
+	{
+		if (cost_a < 0)
+			cost_a *= -1;
+		if (cost_b < 0)
+			cost_b *= -1;
+		return (cost_a + cost_b);
+	}
+}
 
-// 	id_b = 0;
-// 	size = stack_size(stack_a);
-// 	if ((size - 1) - id > id)
-// 		cnt = id;
-// 	else
-// 		cnt = (size - 1 - id);
-// 	if (((stack_a->data) >= (stack_b->data))
-// 		|| (stack_a->data) <= (stack_b->prev)->data)
-// 		return (cnt);
-// 	size = stack_size(stack_b);
-// 	while ((stack_a->data) < (stack_b->data))
-// 	{
-// 		id_b++;
-// 		stack_b = stack_b->next;
-// 	}
-// 	if ((size - 1 - id_b) > id_b)
-// 		return (cnt + id_b);
-// 	else
-// 		return (cnt + (size - 1 - id_b));
-// }
+int	insert_pos(t_stack *stack_b, int value)
+{
+	t_stack	*current;
+	int		pos;
+
+	pos = 0;
+	current = stack_b;
+	while (1)
+	{
+		if (current->data < current->next->data)
+		{
+			if (current->data > value || current->next->data < value)
+				return (pos + 1);
+		}
+		else if (current->data > value && value > current->next->data)
+			return (pos + 1);
+		pos++;
+		current = current->next;
+		if (current == stack_b)
+			break ;
+	}
+	return (0);
+}
+
+void	count_costs(t_stack *stack_a, t_stack *stack_b)
+{
+	int size_a;
+	int size_b;
+	int id_a;
+	int id_b;
+	t_stack *current_a;
+
+	if (!stack_a || !stack_b)
+		return ;
+	current_a = stack_a;
+	id_a = 0;
+	size_a = stack_size(stack_a);
+	size_b = stack_size(stack_b);
+	while (1)
+	{
+		current_a->cost_a = rotation_cost(id_a, size_a);
+		id_b = insert_pos(stack_b, current_a->data);
+		current_a->cost_b = rotation_cost(id_b, size_b);
+		current_a->total_cost = total_cost(current_a->cost_a,
+				current_a->cost_b);
+		current_a = current_a->next;
+		id_a++;
+		if (current_a == stack_a)
+			break ;
+	}
+}
