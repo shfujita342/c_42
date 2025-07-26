@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:13:40 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/05 19:01:33 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/26 13:54:35 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,9 @@ t_stack	*create_node(int value)
 	if (!node)
 		return (NULL);
 	node->data = value;
-	node->cost = 0;
+	node->cost_a = 0;
+	node->cost_b = 0;
+	node->total_cost = 0;
 	node->next = node;
 	node->prev = node;
 	return (node);

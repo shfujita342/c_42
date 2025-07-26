@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 13:00:45 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/25 13:31:19 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/26 15:44:15 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <limits.h>
 # include <stdlib.h>
 # include <unistd.h>
+
+# define INT_MAX 2147483647
+# define INT_MIN -2147483648
 
 typedef struct s_stack
 {
@@ -33,13 +36,6 @@ typedef struct s_size
 	int				size_a;
 	int				size_b;
 }					t_size;
-
-typedef struct s_min_cost
-{
-	int				cost;
-	int				a;
-	int				b;
-}					t_min_cost;
 
 t_stack				*create_node(int value);
 void				delete_node(t_stack *node, t_stack *head);

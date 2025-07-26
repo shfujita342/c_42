@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   count_costs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/24 11:57:10 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/25 14:56:14 by shfujita         ###   ########.fr       */
+/*   Created: 2025/07/25 15:02:14 by shfujita          #+#    #+#             */
+/*   Updated: 2025/07/25 19:09:10 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ int	rotation_cost(int index, int size)
 		return (-(index - size));
 }
 
-int	total_cost(int cost_a, int cost_b)
+int	total_cost(int cost_a, int cost_b, t_stack *value)
 {
-	if (cost_a == cost_b)
+	int	tmp_a;
+	int	tmp_b;
+
+	if ((cost_a >= 0 && cost_b >= 0) || (cost_a < 0 && cost_b < 0))
 	{
 		if (cost_a < 0)
 		{
-			cost_a *= -1;
-			cost_b *= -1;
+			if (cost_a < cost_b)
+				return (-cost_a);
+			else
+				return (-cost_b);
 		}
 		if (cost_a > cost_b)
 			return (cost_a);
@@ -56,10 +61,10 @@ int	total_cost(int cost_a, int cost_b)
 	else
 	{
 		if (cost_a < 0)
-			cost_a *= -1;
+			tmp_a = -cost_a;
 		if (cost_b < 0)
-			cost_b *= -1;
-		return (cost_a + cost_b);
+			tmp_b = -cost_b;
+		return (tmp_a + tmp_b);
 	}
 }
 
@@ -89,11 +94,11 @@ int	insert_pos(t_stack *stack_b, int value)
 
 void	count_costs(t_stack *stack_a, t_stack *stack_b)
 {
-	int size_a;
-	int size_b;
-	int id_a;
-	int id_b;
-	t_stack *current_a;
+	int		size_a;
+	int		size_b;
+	int		id_a;
+	int		id_b;
+	t_stack	*current_a;
 
 	if (!stack_a || !stack_b)
 		return ;
@@ -106,8 +111,8 @@ void	count_costs(t_stack *stack_a, t_stack *stack_b)
 		current_a->cost_a = rotation_cost(id_a, size_a);
 		id_b = insert_pos(stack_b, current_a->data);
 		current_a->cost_b = rotation_cost(id_b, size_b);
-		current_a->total_cost = total_cost(current_a->cost_a,
-				current_a->cost_b);
+		current_a->total_cost = total_cost(current_a->cost_a, current_a->cost_b,
+				current_a);
 		current_a = current_a->next;
 		id_a++;
 		if (current_a == stack_a)
