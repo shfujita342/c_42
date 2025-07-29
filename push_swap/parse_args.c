@@ -6,11 +6,19 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 17:36:36 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/26 17:36:39 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:57:36 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
 
 void	error_exit(void)
 {
@@ -63,11 +71,11 @@ int	arg_to_int(const char *str, int *res)
 	return (1);
 }
 
-t_stack	*parse_args(int argc, char *argv[], t_stack **stack_a)
+t_stack	**parse_args(int argc, char *argv[])
 {
 	int		i;
 	long	value;
-	t_stack	*stack;
+	t_stack	**stack;
 
 	stack = NULL;
 	if (argc < 2)
@@ -75,11 +83,11 @@ t_stack	*parse_args(int argc, char *argv[], t_stack **stack_a)
 	i = argc - 1;
 	while (i >= 0)
 	{
-		if (!arg_to_int(argv[i], &value))
+		if (!arg_to_int(argv[i], (int *)value))
 			error_exit();
-		if (!check_dup(stack, (int)value))
+		if (!check_dup(*stack, (int)value))
 			error_exit();
-		push_node(value, stack_a);
+		push_node(value, stack);
 		i--;
 	}
 	return (stack);

@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/28 20:44:02 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:55:34 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,4 +90,27 @@ static void	assign_index(t_stack *stack_a)
 
 int	main(int argc, char *argv[])
 {
+	t_stack	**stack_a;
+	t_stack	**stack_b;
+	int		i;
+
+	stack_a = parse_args(argc, argv);
+	assign_index(*stack_a);
+	stack_b = NULL;
+	push(stack_a, stack_b, 'b');
+	push(stack_a, stack_b, 'b');
+	i = argc - 1;
+	while (i > 5)
+	{
+		count_costs(*stack_a, *stack_b);
+		a_to_b_sort(stack_a, stack_b);
+	}
+	if (i == 5)
+		five_sort(stack_a, stack_b);
+	if (i == 4)
+		four_sort(stack_a, stack_b);
+	if (i == 3)
+		three_sort(stack_a);
+	b_to_a_sort(stack_a, stack_b);
+	return (0);
 }

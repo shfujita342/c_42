@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:01:58 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/26 15:05:50 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:35:13 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,11 @@ void	rb_rrb(t_stack **stack_b, t_stack *value)
 	}
 }
 
-void	a_to_b_sort(t_stack **stack_a, t_stack **stack_b, t_stack *value)
+void	a_to_b_sort(t_stack **stack_a, t_stack **stack_b)
 {
+	t_stack	*value;
+
+	value = find_min_cost(*stack_a);
 	rr_rrr(stack_a, stack_b, value);
 	ra_rra(stack_a, value);
 	rb_rrb(stack_b, value);

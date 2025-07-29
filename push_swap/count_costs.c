@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:14 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/25 19:09:10 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:46:06 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,8 @@ int	rotation_cost(int index, int size)
 		return (-(index - size));
 }
 
-int	total_cost(int cost_a, int cost_b, t_stack *value)
+int	total_cost(int cost_a, int cost_b)
 {
-	int	tmp_a;
-	int	tmp_b;
-
 	if ((cost_a >= 0 && cost_b >= 0) || (cost_a < 0 && cost_b < 0))
 	{
 		if (cost_a < 0)
@@ -61,10 +58,10 @@ int	total_cost(int cost_a, int cost_b, t_stack *value)
 	else
 	{
 		if (cost_a < 0)
-			tmp_a = -cost_a;
+			cost_a = -cost_a;
 		if (cost_b < 0)
-			tmp_b = -cost_b;
-		return (tmp_a + tmp_b);
+			cost_b = -cost_b;
+		return (cost_a + cost_b);
 	}
 }
 
@@ -111,8 +108,8 @@ void	count_costs(t_stack *stack_a, t_stack *stack_b)
 		current_a->cost_a = rotation_cost(id_a, size_a);
 		id_b = insert_pos(stack_b, current_a->data);
 		current_a->cost_b = rotation_cost(id_b, size_b);
-		current_a->total_cost = total_cost(current_a->cost_a, current_a->cost_b,
-				current_a);
+		current_a->total_cost = total_cost(current_a->cost_a,
+				current_a->cost_b);
 		current_a = current_a->next;
 		id_a++;
 		if (current_a == stack_a)

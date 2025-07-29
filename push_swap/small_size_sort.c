@@ -6,13 +6,13 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 18:35:12 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/28 16:35:31 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:16:09 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_min_id(t_stack *stack_a)
+static int	find_min_id(t_stack *stack_a)
 {
 	t_stack	*current;
 	int		min_data;
