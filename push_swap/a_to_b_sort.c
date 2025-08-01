@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:01:58 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/29 22:35:13 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:57:43 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,63 +32,50 @@ t_stack	*find_min_cost(t_stack *stack_a)
 
 void	rr_rrr(t_stack **stack_a, t_stack **stack_b, t_stack *value)
 {
-	int	ca;
-	int	cb;
-
-	ca = value->cost_a;
-	cb = value->cost_b;
-	while (ca > 0 && cb > 0)
+	while (value->cost_a > 0 && value->cost_b > 0)
 	{
 		rr_rotate(stack_a, stack_b);
-		ca--;
-		cb--;
+		value->cost_a--;
+		value->cost_b--;
 	}
-	while (ca < 0 && cb < 0)
+	while (value->cost_a < 0 && value->cost_b < 0)
 	{
 		rrr_rotate(stack_a, stack_b);
-		ca++;
-		cb++;
+		value->cost_a++;
+		value->cost_b++;
 	}
 }
 
 void	ra_rra(t_stack **stack_a, t_stack *value)
 {
-	int	ca;
-	int	cb;
-
-	ca = value->cost_a;
-	cb = value->cost_b;
-	while (ca != 0)
+	while (value->cost_a != 0)
 	{
-		if (ca > 0)
+		if (value->cost_a > 0)
 		{
 			rotate(stack_a, 'a');
-			ca--;
+			value->cost_a--;
 		}
 		else
 		{
 			r_rotate(stack_a, 'a');
-			ca++;
+			value->cost_a++;
 		}
 	}
 }
 
 void	rb_rrb(t_stack **stack_b, t_stack *value)
 {
-	int	cb;
-
-	cb = value->cost_b;
-	while (cb != 0)
+	while (value->cost_b != 0)
 	{
-		if (cb > 0)
+		if (value->cost_b > 0)
 		{
 			rotate(stack_b, 'b');
-			cb--;
+			value->cost_b--;
 		}
 		else
 		{
 			r_rotate(stack_b, 'b');
-			cb++;
+			value->cost_b++;
 		}
 	}
 }
@@ -101,5 +88,5 @@ void	a_to_b_sort(t_stack **stack_a, t_stack **stack_b)
 	rr_rrr(stack_a, stack_b, value);
 	ra_rra(stack_a, value);
 	rb_rrb(stack_b, value);
-	push(stack_a, stack_b, 'a');
+	push(stack_a, stack_b, 'b');
 }

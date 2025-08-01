@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:14 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/29 22:46:06 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/01 14:47:09 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@ int	stack_size(t_stack *head)
 
 int	rotation_cost(int index, int size)
 {
-	if (index <= size / 2)
+	if (index <= size - index)
 		return (index);
 	else
-		return (-(index - size));
+		return (-(size - index));
 }
 
 int	total_cost(int cost_a, int cost_b)
@@ -70,6 +70,8 @@ int	insert_pos(t_stack *stack_b, int value)
 	t_stack	*current;
 	int		pos;
 
+	if (!stack_b)
+		return (0);
 	pos = 0;
 	current = stack_b;
 	while (1)
@@ -89,30 +91,29 @@ int	insert_pos(t_stack *stack_b, int value)
 	return (0);
 }
 
-void	count_costs(t_stack *stack_a, t_stack *stack_b)
+void	count_costs_a_to_b(t_stack *stack_a, t_stack *stack_b)
 {
 	int		size_a;
 	int		size_b;
 	int		id_a;
 	int		id_b;
-	t_stack	*current_a;
+	t_stack	*current;
 
-	if (!stack_a || !stack_b)
+	if (!stack_a)
 		return ;
-	current_a = stack_a;
+	current = stack_a;
 	id_a = 0;
 	size_a = stack_size(stack_a);
 	size_b = stack_size(stack_b);
 	while (1)
 	{
-		current_a->cost_a = rotation_cost(id_a, size_a);
-		id_b = insert_pos(stack_b, current_a->data);
-		current_a->cost_b = rotation_cost(id_b, size_b);
-		current_a->total_cost = total_cost(current_a->cost_a,
-				current_a->cost_b);
-		current_a = current_a->next;
+		current->cost_a = rotation_cost(id_a, size_a);
+		id_b = insert_pos(stack_b, current->data);
+		current->cost_b = rotation_cost(id_b, size_b);
+		current->total_cost = total_cost(current->cost_a, current->cost_b);
+		current = current->next;
 		id_a++;
-		if (current_a == stack_a)
+		if (current == stack_a)
 			break ;
 	}
 }

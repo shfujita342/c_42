@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 17:36:36 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/29 22:57:36 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/07/30 15:41:31 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	check_dup(t_stack *stack, int value)
 	return (1);
 }
 
-int	arg_to_int(const char *str, int *res)
+int	arg_to_int(const char *str, int *value)
 {
 	int		sign;
 	long	num;
@@ -67,27 +67,28 @@ int	arg_to_int(const char *str, int *res)
 			return (0);
 		str++;
 	}
-	*res = (int)(num * sign);
+	*value = (int)(num * sign);
 	return (1);
 }
 
-t_stack	**parse_args(int argc, char *argv[])
+t_stack	*parse_args(int argc, char *argv[])
 {
 	int		i;
-	long	value;
-	t_stack	**stack;
+	int		value;
+	t_stack	*stack;
 
+	value = 0;
 	stack = NULL;
 	if (argc < 2)
 		return (NULL);
 	i = argc - 1;
-	while (i >= 0)
+	while (i >= 1)
 	{
-		if (!arg_to_int(argv[i], (int *)value))
+		if (!arg_to_int(argv[i], &value))
 			error_exit();
-		if (!check_dup(*stack, (int)value))
+		if (!check_dup(stack, value))
 			error_exit();
-		push_node(value, stack);
+		push_node(value, &stack);
 		i--;
 	}
 	return (stack);
