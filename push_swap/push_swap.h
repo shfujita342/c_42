@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 13:00:45 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/01 16:36:21 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/01 20:46:51 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-// # define INT_MAX 2147483647
-// # define INT_MIN -2147483648
 
 typedef struct s_stack
 {
@@ -55,9 +53,6 @@ void				error_exit(void);
 int					check_dup(t_stack *stack, int value);
 int					arg_to_int(const char *str, int *value);
 t_stack				*parse_args(int argc, char *argv[]);
-void				three_sort(t_stack **stack_a);
-void				four_sort(t_stack **stack_a, t_stack **stack_b);
-void				five_sort(t_stack **stack_a, t_stack **stack_b);
 void				push(t_stack **from_stack, t_stack **to_stack,
 						char which_stack);
 void				swap_top(t_stack **head, char which_stack);
@@ -68,6 +63,7 @@ void				rrr_rotate(t_stack **stack_a, t_stack **stack_b);
 t_stack				*create_node(int value);
 void				push_node(int value, t_stack **head);
 void				delete_node_top(t_stack **head);
+void				three_sort(t_stack **stack_a);
 void				small_size_sort(t_stack **stack_a, t_stack **stack_b);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 18:35:12 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/31 20:05:33 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/01 22:23:18 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,10 @@ void	small_size_sort(t_stack **stack_a, t_stack **stack_b)
 
 	size = stack_size(*stack_a);
 	if (size == 2)
-		swap_top(stack_a, 'a');
+	{
+		if ((*stack_a)->data > (*stack_a)->next->data)
+			swap_top(stack_a, 'a');
+	}
 	else if (size == 3)
 		three_sort(stack_a);
 	else if (size == 4)
