@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 16:55:01 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 20:39:59 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <string.h>
 
-int	main(int argc, char **argv)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	size_t	i;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (i < n - 1 && s1[i] && s1[i] == s2[i])
+		i++;
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

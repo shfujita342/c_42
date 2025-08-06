@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 16:48:34 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 22:06:17 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	main(int argc, char **argv)
+char	*ft_strrchr(const char *str, int c)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	char			*out;
+	unsigned char	find;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	find = (unsigned char)c;
+	out = 0;
+	while (*str)
+	{
+		if (*str == find)
+			out = (char *)str;
+		str++;
+	}
+	if (!*str && find == '\0')
+		return ((char *)str);
+	return (out);
 }

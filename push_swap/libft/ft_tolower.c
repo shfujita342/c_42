@@ -1,25 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 16:39:14 by shfujita          #+#    #+#             */
+/*   Updated: 2025/04/28 16:40:45 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
-
-int	main(int argc, char **argv)
+int	ft_tolower(int c)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	if (c >= 'A' && c <= 'Z')
+		c += 'a' - 'A';
+	return (c);
 }

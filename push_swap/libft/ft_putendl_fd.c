@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_putendl_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/05/03 13:40:30 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 13:41:35 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <unistd.h>
 
-int	main(int argc, char **argv)
+void	ft_putendl_fd(char *s, int fd)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
-
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	if (!s)
+		return ;
+	while (*s)
+	{
+		write(fd, s, 1);
+		s++;
+	}
+	write(fd, "\n", 1);
 }

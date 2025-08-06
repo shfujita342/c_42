@@ -6,66 +6,43 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/25 15:02:14 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/01 14:47:09 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/06 17:46:12 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	stack_size(t_stack *head)
+t_rota_cost	get_rotation_cost(int index, int size)
 {
-	t_stack	*node;
-	int		size;
+	t_rota_cost	value;
 
-	size = 1;
-	if (!head)
-		return (0);
-	if (head->next == head)
-		return (1);
-	node = head->next;
-	while (node != head)
+	if (index < size - index)
 	{
-		size++;
-		node = node->next;
+		value.cost = index;
+		value.dir = 1;
 	}
-	return (size);
-}
-
-int	rotation_cost(int index, int size)
-{
-	if (index <= size - index)
-		return (index);
 	else
-		return (-(size - index));
+	{
+		value.cost = size - index;
+		value.dir = 0;
+	}
+	return (value);
 }
 
-int	total_cost(int cost_a, int cost_b)
+int	get_total_cost(t_rota_cost *rota_cost_a, t_rota_cost *rota_cost_b)
 {
-	if ((cost_a >= 0 && cost_b >= 0) || (cost_a < 0 && cost_b < 0))
+	if (rota_cost_a->dir == rota_cost_b->dir)
 	{
-		if (cost_a < 0)
-		{
-			if (cost_a < cost_b)
-				return (-cost_a);
-			else
-				return (-cost_b);
-		}
-		if (cost_a > cost_b)
-			return (cost_a);
+		if (rota_cost_a->cost >= rota_cost_b->cost)
+			return (rota_cost_a->cost);
 		else
-			return (cost_b);
+			return (rota_cost_b->cost);
 	}
 	else
-	{
-		if (cost_a < 0)
-			cost_a = -cost_a;
-		if (cost_b < 0)
-			cost_b = -cost_b;
-		return (cost_a + cost_b);
-	}
+		return (rota_cost_a->cost + rota_cost_b->cost);
 }
 
-int	insert_pos(t_stack *stack_b, int value)
+int	get_insert_pos_to_b(t_stack *stack_b, int value)
 {
 	t_stack	*current;
 	int		pos;
@@ -91,29 +68,56 @@ int	insert_pos(t_stack *stack_b, int value)
 	return (0);
 }
 
-void	count_costs_a_to_b(t_stack *stack_a, t_stack *stack_b)
+int	get_insert_pos_to_a(t_stack *stack_a, int value)
 {
-	int		size_a;
-	int		size_b;
-	int		id_a;
-	int		id_b;
 	t_stack	*current;
+	int		pos;
 
 	if (!stack_a)
-		return ;
+		return (0);
+	pos = 0;
 	current = stack_a;
-	id_a = 0;
-	size_a = stack_size(stack_a);
-	size_b = stack_size(stack_b);
 	while (1)
 	{
-		current->cost_a = rotation_cost(id_a, size_a);
-		id_b = insert_pos(stack_b, current->data);
-		current->cost_b = rotation_cost(id_b, size_b);
-		current->total_cost = total_cost(current->cost_a, current->cost_b);
+		if (current->data > current->next->data)
+		{
+			if (current->data < value || current->next->data > value)
+				return (pos + 1);
+		}
+		else if (current->data < value && value < current->next->data)
+			return (pos + 1);
+		pos++;
 		current = current->next;
-		id_a++;
 		if (current == stack_a)
+			break ;
+	}
+	return (0);
+}
+
+void	count_costs(t_stack *from_stack, t_stack *to_stack)
+{
+	int		size_from;
+	int		size_to;
+	int		id_from;
+	int		id_to;
+	t_stack	*current;
+
+	if (!from_stack)
+		return ;
+	current = from_stack;
+	id_from = 0;
+	size_from = get_stack_size(from_stack);
+	size_to = get_stack_size(to_stack);
+	while (1)
+	{
+		id_to = get_insert_pos_to_b(to_stack, current->data);
+		current->rota_cost_a = get_rotation_cost(id_from, size_from);
+		current->rota_cost_b = get_rotation_cost(id_to, size_to);
+		current->total_cost = get_total_cost(&current->rota_cost_a,
+				&current->rota_cost_b);
+		current = current->next;
+		id_from++;
+		if (current == from_stack)
 			break ;
 	}
 }

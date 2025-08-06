@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/14 14:13:40 by shfujita          #+#    #+#             */
-/*   Updated: 2025/07/26 13:54:35 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/05 21:41:14 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,17 @@ t_stack	*create_node(int value)
 	if (!node)
 		return (NULL);
 	node->data = value;
-	node->cost_a = 0;
-	node->cost_b = 0;
+	node->rota_cost_a.cost = 0;
+	node->rota_cost_b.cost = 0;
+	node->rota_cost_a.dir = 0;
+	node->rota_cost_b.dir = 0;
 	node->total_cost = 0;
 	node->next = node;
 	node->prev = node;
 	return (node);
 }
 
-void	push_node(int value, t_stack **head)
+void	insert_node(int value, t_stack **head)
 {
 	t_stack	*node;
 	t_stack	*tail;
@@ -72,4 +74,23 @@ void	delete_node_top(t_stack **head)
 		*head = next;
 		free(tmp);
 	}
+}
+
+int	get_stack_size(t_stack *head)
+{
+	t_stack	*node;
+	int		size;
+
+	size = 1;
+	if (!head)
+		return (0);
+	if (head->next == head)
+		return (1);
+	node = head->next;
+	while (node != head)
+	{
+		size++;
+		node = node->next;
+	}
+	return (size);
 }

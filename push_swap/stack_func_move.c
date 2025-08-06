@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack_move.c                                       :+:      :+:    :+:   */
+/*   stack_func_move.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 13:14:45 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/01 15:08:06 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/05 20:14:41 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	push(t_stack **from_stack, t_stack **to_stack, char which_stack)
 		return ;
 	tmp = (*from_stack)->data;
 	delete_node_top(from_stack);
-	push_node(tmp, to_stack);
+	insert_node(tmp, to_stack);
 	if (which_stack == 'a')
 		write(1, "pa\n", 3);
 	else
@@ -40,6 +40,6 @@ void	swap_top(t_stack **head, char which_stack)
 	second->data = tmp;
 	if (which_stack == 'a')
 		write(1, "sa\n", 3);
-	else if (which_stack == 'b')
+	else
 		write(1, "sb\n", 3);
 }

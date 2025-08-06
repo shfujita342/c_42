@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/25 16:52:14 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 20:56:25 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <string.h>
 
-int	main(int argc, char **argv)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	unsigned char	*ptr;
+	size_t			i;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	ptr = (unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		ptr[i] = (unsigned char)c;
+		i++;
+	}
+	return (s);
 }
+
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int	tes[5] = {1, 2, 3, 4, 5};
+
+// 	tes = ft_memset(tes, 0, 5);
+// }

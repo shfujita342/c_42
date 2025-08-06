@@ -6,18 +6,19 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 17:36:36 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/01 20:54:27 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/06 19:26:54 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "push_swap.h"
 
-int	ft_isdigit(int c)
+void	free_stack(t_stack **stack_a)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	else
-		return (0);
+	if (!stack_a)
+		return ;
+	while (*stack_a)
+		delete_node_top(stack_a);
 }
 
 void	error_exit(void)
@@ -44,7 +45,7 @@ int	check_dup(t_stack *stack, int value)
 	return (1);
 }
 
-int	arg_to_int(const char *str, int *value)
+int	convert_arg_to_int(const char *str, int *value)
 {
 	int		sign;
 	long	num;
@@ -84,11 +85,17 @@ t_stack	*parse_args(int argc, char *argv[])
 	i = argc - 1;
 	while (i >= 1)
 	{
-		if (!arg_to_int(argv[i], &value))
+		if (!convert_arg_to_int(argv[i], &value))
+		{
+			free_stack(&stack);
 			error_exit();
+		}
 		if (!check_dup(stack, value))
+		{
+			free_stack(&stack);
 			error_exit();
-		push_node(value, &stack);
+		}
+		insert_node(value, &stack);
 		i--;
 	}
 	return (stack);

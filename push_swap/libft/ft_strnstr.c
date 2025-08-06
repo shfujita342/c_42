@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/30 16:21:03 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/09 20:47:22 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include <string.h>
 
-int	main(int argc, char **argv)
+char	*ft_strnstr(const char *s, const char *find, size_t len)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	size_t	i;
+	size_t	j;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	i = 0;
+	if (!*find)
+		return ((char *)s);
+	while (s[i])
+	{
+		j = 0;
+		while (i + j < len && find[j] && find[j] == s[i + j])
+			j++;
+		if (!find[j])
+			return ((char *)(s + i));
+		i++;
+	}
+	return (NULL);
 }

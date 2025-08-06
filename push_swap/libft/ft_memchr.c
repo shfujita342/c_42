@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 18:03:05 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 14:37:35 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	unsigned char	*ptr;
+	unsigned char	d;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
+	ptr = (unsigned char *)s;
+	d = (unsigned char)c;
+	while (n--)
+	{
+		if (*ptr == d)
+			return (ptr);
+		ptr++;
+	}
 	return (0);
 }

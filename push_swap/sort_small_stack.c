@@ -1,52 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   small_size_sort.c                                  :+:      :+:    :+:   */
+/*   sort_small_stack.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/26 18:35:12 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/01 22:23:18 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/06 21:03:56 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static int	find_min_id(t_stack *stack_a)
-{
-	t_stack	*current;
-	int		min_data;
-	int		idx;
-	int		min_idx;
-
-	if (!stack_a)
-		return (-1);
-	idx = 0;
-	min_idx = 0;
-	current = stack_a;
-	min_data = current->data;
-	while (1)
-	{
-		if (current->data < min_data)
-		{
-			min_idx = idx;
-			min_data = current->data;
-		}
-		idx++;
-		current = current->next;
-		if (current == stack_a)
-			break ;
-	}
-	return (min_idx);
-}
-
-void	three_sort(t_stack **stack_a)
+void	sort_three_size_stack(t_stack **stack_a)
 {
 	int	first;
 	int	second;
 	int	third;
 
-	if (stack_size(*stack_a) != 3)
+	if (get_stack_size(*stack_a) != 3)
 		return ;
 	first = (*stack_a)->data;
 	second = (*stack_a)->next->data;
@@ -69,14 +41,14 @@ void	three_sort(t_stack **stack_a)
 		rotate(stack_a, 'a');
 }
 
-void	four_sort(t_stack **stack_a, t_stack **stack_b)
+void	sort_four_size_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	size_a;
 	int	min_id;
 	int	back;
 
-	min_id = find_min_id(*stack_a);
-	size_a = stack_size(*stack_a);
+	min_id = find_min_data_pos(*stack_a);
+	size_a = get_stack_size(*stack_a);
 	if (min_id <= size_a / 2)
 		while (min_id-- > 0)
 			rotate(stack_a, 'a');
@@ -87,18 +59,18 @@ void	four_sort(t_stack **stack_a, t_stack **stack_b)
 			r_rotate(stack_a, 'a');
 	}
 	push(stack_a, stack_b, 'b');
-	three_sort(stack_a);
+	sort_three_size_stack(stack_a);
 	push(stack_b, stack_a, 'a');
 }
 
-void	five_sort(t_stack **stack_a, t_stack **stack_b)
+void	sort_five_size_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	size_a;
 	int	min_id;
 	int	back;
 
-	size_a = stack_size(*stack_a);
-	min_id = find_min_id(*stack_a);
+	size_a = get_stack_size(*stack_a);
+	min_id = find_min_data_pos(*stack_a);
 	if (min_id <= size_a - min_id)
 		while (min_id-- > 0)
 			rotate(stack_a, 'a');
@@ -109,24 +81,24 @@ void	five_sort(t_stack **stack_a, t_stack **stack_b)
 			r_rotate(stack_a, 'a');
 	}
 	push(stack_a, stack_b, 'b');
-	four_sort(stack_a, stack_b);
+	sort_four_size_stack(stack_a, stack_b);
 	push(stack_b, stack_a, 'a');
 }
 
-void	small_size_sort(t_stack **stack_a, t_stack **stack_b)
+void	sort_small_stack(t_stack **stack_a, t_stack **stack_b)
 {
 	int	size;
 
-	size = stack_size(*stack_a);
+	size = get_stack_size(*stack_a);
 	if (size == 2)
 	{
 		if ((*stack_a)->data > (*stack_a)->next->data)
 			swap_top(stack_a, 'a');
 	}
 	else if (size == 3)
-		three_sort(stack_a);
+		sort_three_size_stack(stack_a);
 	else if (size == 4)
-		four_sort(stack_a, stack_b);
+		sort_four_size_stack(stack_a, stack_b);
 	else if (size == 5)
-		five_sort(stack_a, stack_b);
+		sort_five_size_stack(stack_a, stack_b);
 }

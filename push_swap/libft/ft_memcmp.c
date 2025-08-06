@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/14 16:13:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/06 19:25:56 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 20:00:42 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 16:27:11 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	t_stack	*stack_a;
-	t_stack	*stack_b;
+	unsigned char	*ss1;
+	unsigned char	*ss2;
+	size_t			i;
 
-	stack_a = parse_args(argc, argv);
-	stack_b = NULL;
-	sort(&stack_a, &stack_b);
-	free_stack(&stack_a);
-	return (0);
+	if (n == 0)
+		return (0);
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n - 1 && ss1[i] == ss2[i])
+		i++;
+	return ((int)ss1[i] - (int)ss2[i]);
 }
