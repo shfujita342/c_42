@@ -6,7 +6,7 @@
 #    By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 20:38:29 by shfujita          #+#    #+#              #
-#    Updated: 2025/08/21 20:48:28 by shfujita         ###   ########.fr        #
+#    Updated: 2025/08/21 23:22:11 by shfujita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,10 @@ INCLUDES    = -I $(LIBFT_DIR)
 
 SRCS = \
     main.c    \
-    parse.c
+    parse.c\
+	path.c\
+	child_process.c\
+	execute.c
 
 OBJS        = $(SRCS:.c=.o)
 

@@ -6,13 +6,14 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:05:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/21 20:41:16 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/21 23:20:48 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PIPEX_H
 # define PIPEX_H
 
+# include <errno.h>
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
@@ -32,5 +33,11 @@ typedef struct s_pipex
 }			t_pipex;
 
 t_pipex		*parse_args(int argc, char *argv[]);
+void		execute_pipex(t_pipex *pipex, char *envp[]);
+pid_t		make_child_process_cmd1(t_pipex *pipex);
+pid_t		make_child_process_cmd2(t_pipex *pipex);
+void		free_pipex(t_pipex *pipex);
+void		free_strv(char **strv);
+char		*resolve_path(char *cmd, char *envp[]);
 
 #endif
