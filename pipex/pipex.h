@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:05:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/21 23:20:48 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:11:28 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <sys/wait.h>
 # include <unistd.h>
 
 typedef struct s_pipex
@@ -33,7 +34,7 @@ typedef struct s_pipex
 }			t_pipex;
 
 t_pipex		*parse_args(int argc, char *argv[]);
-void		execute_pipex(t_pipex *pipex, char *envp[]);
+int			execute_pipex(t_pipex *pipex, char *envp[]);
 pid_t		make_child_process_cmd1(t_pipex *pipex);
 pid_t		make_child_process_cmd2(t_pipex *pipex);
 void		free_pipex(t_pipex *pipex);

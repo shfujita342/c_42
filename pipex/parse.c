@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:10:29 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/21 20:46:13 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/23 14:44:13 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_pipex	*parse_args(int argc, char *argv[])
 
 	if (argc != 5)
 	{
-		write(2, "Usage: ./pipex infile cmd1 cmd2 outfile\n", 40);
+		ft_putstr_fd("Usage: ./pipex infile cmd1 cmd2 outfile\n", 2);
 		exit(1);
 	}
 	res = malloc(sizeof(t_pipex));
