@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:05:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/23 14:11:28 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/24 18:54:54 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ pid_t		make_child_process_cmd2(t_pipex *pipex);
 void		free_pipex(t_pipex *pipex);
 void		free_strv(char **strv);
 char		*resolve_path(char *cmd, char *envp[]);
-
+void		is_ok(int res, t_pipex *p);
+void		close_fds(t_pipex *pipex);
 #endif
