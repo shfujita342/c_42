@@ -15,3 +15,7 @@
 　　　　　　実際./pipexをシェルで実行すると、シェルはforkで子プロセスをつくり、execeveを呼んでpipexに置き換え、pipex（子プロセス）が終わるまでwaitしている。
 
 ・waitpid：pidで指定したプロセスが終了するのを待つシステムコール。
+
+./pipex infile /dev/stdin /dev/stdout outfile
+./pipex infile "sleep 3" "sleep 3" outfile -> pipex:pipex:infile: Permission denied
+outfile: Permission denied

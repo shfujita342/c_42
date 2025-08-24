@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:49:52 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/24 19:56:37 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/24 21:35:49 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,26 +97,54 @@ void	close_fds(t_pipex *pipex)
 	}
 }
 
-int	execute_pipex(t_pipex *pipex, char *envp[])
+// int	execute_pipex(t_pipex *pipex, char *envp[])
+// {
+// 	int	status;
+
+// 	status = 0;
+// 	if (get_file_fd(pipex) < 0)
+// 		return (1);
+// 	if (make_pipe(pipex) < 0)
+// 		return (1);
+// 	pipex->pid1 = make_child_process_cmd1(pipex);
+// 	if (pipex->pid1 == 0)
+// 		execute_cmd(pipex, pipex->cmd1, envp);
+// 	pipex->pid2 = make_child_process_cmd2(pipex);
+// 	if (pipex->pid2 == 0)
+// 		execute_cmd(pipex, pipex->cmd2, envp);
+// 	close_fds(pipex);
+// 	if (pipex->pid1 > 0)
+// 		waitpid(pipex->pid1, NULL, 0);
+// 	if (pipex->pid2 > 0)
+// 		waitpid(pipex->pid2, &status, 0);
+// 	if (WIFEXITED(status))
+// 		return (WEXITSTATUS(status));
+// 	return (1);
+// }
+
+int	execute_pipex(t_pipex *p, char *envp[])
 {
 	int	status;
 
 	status = 0;
-	if (get_file_fd(pipex) < 0)
+	if (make_pipe(p) < 0)
 		return (1);
-	if (make_pipe(pipex) < 0)
-		return (1);
-	pipex->pid1 = make_child_process_cmd1(pipex);
-	if (pipex->pid1 == 0)
-		execute_cmd(pipex, pipex->cmd1, envp);
-	pipex->pid2 = make_child_process_cmd2(pipex);
-	if (pipex->pid2 == 0)
-		execute_cmd(pipex, pipex->cmd2, envp);
-	close_fds(pipex);
-	if (pipex->pid1 > 0)
-		waitpid(pipex->pid1, NULL, 0);
-	if (pipex->pid2 > 0)
-		waitpid(pipex->pid2, &status, 0);
+	p->pid1 = make_child_process_cmd1(p);
+	if (p->pid1 == 0)
+		execute_cmd(p, p->cmd1, envp);
+	p->pid2 = make_child_process_cmd2(p);
+	if (p->pid2 == 0)
+		execute_cmd(p, p->cmd2, envp);
+	if (p->pipefd[0] >= 0)
+		close(p->pipefd[0]);
+	if (p->pipefd[1] >= 0)
+		close(p->pipefd[1]);
+	p->pipefd[0] = -1;
+	p->pipefd[1] = -1;
+	if (p->pid1 > 0)
+		waitpid(p->pid1, NULL, 0);
+	if (p->pid2 > 0)
+		waitpid(p->pid2, &status, 0);
 	if (WIFEXITED(status))
 		return (WEXITSTATUS(status));
 	return (1);
