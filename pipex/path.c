@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: fujit <fujit@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 17:05:30 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/21 23:22:42 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/25 05:52:09 by fujit            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*search_cmd_path(char *cmd, char **dir_path)
 		free(tmp);
 		if (!full_path)
 			break ;
-		if (access(full_path, X_OK) == 0)
+		if (access(full_path, F_OK) == 0)
 			return (full_path);
 		free(full_path);
 		i++;
@@ -63,7 +63,7 @@ char	*resolve_path(char *cmd, char *envp[])
 
 	if (ft_strchr(cmd, '/'))
 	{
-		if (access(cmd, X_OK) == 0)
+		if (access(cmd, F_OK) == 0)
 			return (ft_strdup(cmd));
 		else
 			return (NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipex.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: fujit <fujit@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 15:05:09 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/24 18:54:54 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/25 06:25:40 by fujit            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,6 @@ void		free_strv(char **strv);
 char		*resolve_path(char *cmd, char *envp[]);
 void		is_ok(int res, t_pipex *p);
 void		close_fds(t_pipex *pipex);
+void		free_strv(char **strv);
+void	print_errno2(const char *pfx, const char *name);
 #endif

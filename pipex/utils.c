@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fujit <fujit@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/03 13:53:24 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/25 03:47:26 by fujit            ###   ########.fr       */
+/*   Created: 2025/08/25 06:21:26 by fujit             #+#    #+#             */
+/*   Updated: 2025/08/25 06:34:56 by fujit            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "pipex.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+void	print_errno2(const char *pfx, const char *name)
 {
-	char	*res;
-	size_t	start;
-	size_t	end;
+	char	*msg1;
+	char	*msg2;
+	char	*msg3;
+	char	*full;
 
-	start = 0;
-	end = ft_strlen(s1);
-	if (!s1 || !set)
-		return (NULL);
-	while (s1[start] && ft_strchr(set, s1[start]))
-		start++;
-	while (end > start && ft_strchr(set, s1[end - 1]))
-		end--;
-	res = malloc(end - start + 1);
-	if (!res)
-		return (NULL);
-	ft_strlcpy(res, s1 + start, end - start + 1);
-	return (res);
+	msg1 = ft_strjoin(pfx, ": ");
+	msg2 = ft_strjoin(msg1, name);
+	free(msg1);
+	msg3 = ft_strjoin(msg2, ": ");
+	free(msg2);
+	full = ft_strjoin(msg3, strerror(errno));
+	free(msg3);
+	msg1 = ft_strjoin(full, "\n");
+	free(full);
+	if (!msg1)
+		return ;
+	write(2, msg1, strlen(msg1));
+	free(msg1);
 }

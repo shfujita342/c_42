@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+         #
+#    By: fujit <fujit@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 20:38:29 by shfujita          #+#    #+#              #
-#    Updated: 2025/08/21 23:22:11 by shfujita         ###   ########.fr        #
+#    Updated: 2025/08/25 06:27:38 by fujit            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ SRCS = \
     parse.c\
 	path.c\
 	child_process.c\
-	execute.c
+	execute.c\
+	utils.c
 
 OBJS        = $(SRCS:.c=.o)
 

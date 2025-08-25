@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   child_process.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*   By: fujit <fujit@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/21 14:02:34 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/24 22:48:15 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/25 06:43:08 by fujit            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	redirect_cmd1(t_pipex *p)
 	fd = open(p->infile, O_RDONLY);
 	if (fd < 0)
 	{
-		ft_putstr_fd("pipex:", 2);
-		perror(p->infile);
+		// ft_putstr_fd("pipex: ", 2);
+		// perror(p->infile);
+		print_errno2("pipex",p->infile);
 		if (p->pipefd[0] >= 0)
 			close(p->pipefd[0]);
 		if (p->pipefd[1] >= 0)
@@ -52,8 +53,9 @@ void	redirect_cmd2(t_pipex *p)
 	fd = open(p->outfile, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		ft_putstr_fd("pipex:", 2);
-		perror(p->outfile);
+		// ft_putstr_fd("pipex: ", 2);
+		// perror(p->outfile);
+		print_errno2("pipex",p->outfile);
 		close_fds(p);
 		_exit(1);
 	}
@@ -74,8 +76,9 @@ pid_t	make_child_process_cmd1(t_pipex *p)
 	pid = fork();
 	if (pid < 0)
 	{
-		write(2, "pipex: fork: ", 13);
+		ft_putstr_fd("pipex: fork: ",2);
 		perror("fork");
+		
 		return (-1);
 	}
 	if (pid == 0)
@@ -92,7 +95,7 @@ pid_t	make_child_process_cmd2(t_pipex *p)
 	pid = fork();
 	if (pid < 0)
 	{
-		write(2, "pipex: fork: ", 13);
+		ft_putstr_fd("pipex: fork: ",2);
 		perror("fork");
 		return (-1);
 	}
