@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
+/*   02_execute.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fujit <fujit@student.42.fr>                +#+  +:+       +#+        */
+/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/19 20:49:52 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/25 06:24:58 by fujit            ###   ########.fr       */
+/*   Updated: 2025/08/25 19:57:23 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	make_pipe(t_pipex *pipex)
 {
 	if (pipe(pipex->pipefd) < 0)
 	{
-		ft_putstr_fd("pipex: pipe: ", 2);
-		perror("pipe");
+		print_errno2("pipex: pipe: ", "pipe");
 		if (pipex->infd >= 0)
 			close(pipex->infd);
 		close(pipex->outfd);
@@ -43,9 +42,8 @@ void	execute_cmd(t_pipex *pipex, char **cmd, char *envp[])
 	execve(path, cmd, envp);
 	if (errno == EACCES)
 	{
-		// ft_putstr_fd("pipe: ",2);
-		// perror(cmd[0]);
-		print_errno2("pipex",cmd[0]);
+		print_errno2("pipex", cmd[0]);
+		free(path);
 		free_pipex(pipex);
 		exit(126);
 	}
@@ -80,6 +78,27 @@ void	close_fds(t_pipex *pipex)
 	}
 }
 
+void	print_errno2(const char *pfx, const char *name)
+{
+	char	*msg1;
+	char	*msg2;
+	char	*msg3;
+	char	*full;
+
+	msg1 = ft_strjoin(pfx, ": ");
+	msg2 = ft_strjoin(msg1, name);
+	free(msg1);
+	msg3 = ft_strjoin(msg2, ": ");
+	free(msg2);
+	full = ft_strjoin(msg3, strerror(errno));
+	free(msg3);
+	msg1 = ft_strjoin(full, "\n");
+	free(full);
+	if (!msg1)
+		return ;
+	write(2, msg1, strlen(msg1));
+	free(msg1);
+}
 
 int	execute_pipex(t_pipex *p, char *envp[])
 {
@@ -88,18 +107,13 @@ int	execute_pipex(t_pipex *p, char *envp[])
 	status = 0;
 	if (make_pipe(p) < 0)
 		return (1);
-	p->pid1 = make_child_process_cmd1(p);
+	p->pid1 = make_child_process(p, 1);
 	if (p->pid1 == 0)
 		execute_cmd(p, p->cmd1, envp);
-	p->pid2 = make_child_process_cmd2(p);
+	p->pid2 = make_child_process(p, 0);
 	if (p->pid2 == 0)
 		execute_cmd(p, p->cmd2, envp);
-	if (p->pipefd[0] >= 0)
-		close(p->pipefd[0]);
-	if (p->pipefd[1] >= 0)
-		close(p->pipefd[1]);
-	p->pipefd[0] = -1;
-	p->pipefd[1] = -1;
+	close_fds(p);
 	if (p->pid1 > 0)
 		waitpid(p->pid1, NULL, 0);
 	if (p->pid2 > 0)

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: fujit <fujit@student.42.fr>                +#+  +:+       +#+         #
+#    By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/08/21 20:38:29 by shfujita          #+#    #+#              #
-#    Updated: 2025/08/25 06:27:38 by fujit            ###   ########.fr        #
+#    Updated: 2025/08/25 16:50:41 by shfujita         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,11 @@ LIBFT_LIB   = $(LIBFT_DIR)/libft.a
 INCLUDES    = -I $(LIBFT_DIR)
 
 SRCS = \
-    main.c    \
-    parse.c\
-	path.c\
-	child_process.c\
-	execute.c\
-	utils.c
+    00_main.c    \
+    01_parse.c\
+	03_path.c\
+	04_child_process.c\
+	02_execute.c
 
 OBJS        = $(SRCS:.c=.o)
 

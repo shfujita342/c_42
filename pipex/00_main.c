@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   00_main.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/15 22:48:16 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/24 19:53:59 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/25 17:17:29 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static void	init_pipex(t_pipex *p)
 {
+	if (!p)
+		return ;
 	p->infd = -1;
 	p->outfd = -1;
 	p->pipefd[0] = -1;
@@ -25,12 +27,14 @@ static void	init_pipex(t_pipex *p)
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipex	*pipex;
-	int		code;
+	int		res;
 
 	pipex = parse_args(argc, argv);
+	if (!pipex)
+		return (1);
 	init_pipex(pipex);
-	code = execute_pipex(pipex, envp);
-	close_fds(pipex);
+	res = execute_pipex(pipex, envp);
+	// close_fds(pipex);
 	free_pipex(pipex);
-	return (code);
+	return (res);
 }
