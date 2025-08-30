@@ -1,36 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:55:44 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 13:11:04 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 20:00:42 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 16:27:11 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "so_long.h"
 
-static int	arg_error(void)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd("Usage: ./so_long maps/xxx.ber\n", 2);
-	return (1);
-}
+	unsigned char	*ss1;
+	unsigned char	*ss2;
+	size_t			i;
 
-int	main(int argc, char **argv)
-{
-	t_game	g;
-
-	if (argc != 2)
-		return (arg_error());
-	if (init_game(&g, argv[1]) == 0)
-		print_error("init failed");
-	render(&g);
-	mlx_hook(g.win, 2, 1L, on_key, &g);
-	mlx_hook(g.win, 17, 0, on_close, &g);
-	mlx_loop(g.mlx);
-	return (0);
+	if (n == 0)
+		return (0);
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n - 1 && ss1[i] == ss2[i])
+		i++;
+	return ((int)ss1[i] - (int)ss2[i]);
 }

@@ -6,11 +6,13 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:54:16 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/29 21:29:16 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/30 21:11:36 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
+# include "get_next_line.h"
+# include "libft.h"
 # include "mlx.h"
 # include <errno.h>
 # include <fcntl.h>
@@ -63,45 +65,46 @@ typedef struct s_game
 	int		need;
 }			t_game;
 
-/* init.c */
+typedef struct s_fctx
+{
+	char	**g;
+	int		w;
+	int		h;
+	int		block_exit;
+}			t_fctx;
+
 int			init_game(t_game *g, const char *path);
 void		load_textures(t_game *g);
 void		free_images(t_game *g);
 
-/* map_load.c */
 int			load_map(const char *path, t_map *m);
 void		free_map(t_map *m);
 
-/* map_validate.c */
 int			check_map_charset(t_map *m);
 int			is_rect_map(t_map *m);
 int			check_map_walls(t_map *m);
 int			locate_player_collect(t_map *m);
 
-/* path_check.c */
 int			check_path(t_map *m);
 
-/* render.c */
 void		render(t_game *g);
 
-/* hooks.c */
 int			on_close(t_game *g);
 int			on_key(int key, t_game *g);
 
-/* utils.c */
 size_t		ft_strlen(const char *s);
 char		*ft_strdup(const char *s);
 char		**split_lines(char *buf);
 char		*read_file(const char *path);
 void		putstr_fd(const char *s, int fd);
 
-/* utils2.c */
 void		putnbr_fd(int n, int fd);
 void		*safe_malloc(size_t size);
 char		**dup_grid(char **grid, int h);
 void		free_grid(char **grid, int h);
-
-/* free.c */
+char		*append_line(char *acc, char *line, int fd);
+int			is_blank_line(const char *s);
 void		print_error(const char *msg);
+void		gnl_drain(int fd);
 
 #endif

@@ -1,25 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 15:02:33 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:51 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/25 16:52:14 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 20:56:25 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "so_long.h"
+#include <string.h>
 
-void	print_error(const char *msg)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
+	unsigned char	*ptr;
+	size_t			i;
+
+	ptr = (unsigned char *)s;
+	i = 0;
+	while (i < n)
 	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
+		ptr[i] = (unsigned char)c;
+		i++;
 	}
-	exit(1);
+	return (s);
 }
+
+// #include <stdio.h>
+
+// int	main(void)
+// {
+// 	int	tes[5] = {1, 2, 3, 4, 5};
+
+// 	tes = ft_memset(tes, 0, 5);
+// }

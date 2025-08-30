@@ -6,10 +6,11 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:56:05 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/29 21:44:01 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/30 15:43:03 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "libft.h"
 #include "so_long.h"
 
 static void	is_ber_file(const char *path)
@@ -56,38 +57,11 @@ void	free_images(t_game *g)
 		mlx_destroy_image(g->mlx, g->tex_collect.ptr);
 }
 
-// int	init_game(t_game *g, const char *path)
-// {
-// 	if (!path)
-// 		return (0);
-// 	memset(g, 0, sizeof(*g));
-// 	is_ber_file(path);
-// 	if (!load_map(path, &g->map))
-// 		return (0);
-// 	if (!is_rect_map(&g->map) || !check_map_charset(&g->map))
-// 		print_error("map invalid");
-// 	if (!check_map_walls(&g->map) || !locate_player_collect(&g->map))
-// 		print_error("map invalid");
-// 	if (!check_path(&g->map))
-// 		print_error("no valid path");
-// 	g->need = g->map.c_cnt;
-// 	g->mlx = mlx_init();
-// 	if (!g->mlx)
-// 		print_error("mlx init");
-// 	g->win = mlx_new_window(g->mlx, g->map.w * TILE, g->map.h * TILE,
-// 			"so_long");
-// 	if (!g->win)
-// 		print_error("win create");
-// 	load_textures(g);
-// 	return (1);
-// }
-
-// init.c （一部）
-int	init_game(t_game *g, const char *path)
+static int	prepare_map(t_game *g, const char *path)
 {
 	if (!path)
 		return (0);
-	memset(g, 0, sizeof(*g));
+	ft_memset(g, 0, sizeof(*g));
 	is_ber_file(path);
 	if (!load_map(path, &g->map))
 		return (0);
@@ -99,6 +73,13 @@ int	init_game(t_game *g, const char *path)
 		return (0);
 	}
 	g->need = g->map.c_cnt;
+	return (1);
+}
+
+int	init_game(t_game *g, const char *path)
+{
+	if (!prepare_map(g, path))
+		return (0);
 	g->mlx = mlx_init();
 	if (!g->mlx)
 	{

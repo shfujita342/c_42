@@ -6,20 +6,11 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:58:18 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/29 20:54:43 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/30 12:25:10 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-static int	is_valid_char(char c)
-{
-	if (c == '0' || c == '1')
-		return (1);
-	if (c == 'C' || c == 'E' || c == 'P')
-		return (1);
-	return (0);
-}
 
 int	check_map_charset(t_map *m)
 {
@@ -32,7 +23,9 @@ int	check_map_charset(t_map *m)
 		x = 0;
 		while (x < m->w)
 		{
-			if (!is_valid_char(m->grid[y][x]))
+			if (m->grid[y][x] != '0' && m->grid[y][x] != '1'
+				&& m->grid[y][x] != 'C' && m->grid[y][x] != 'E'
+				&& m->grid[y][x] != 'P')
 				return (0);
 			x++;
 		}
@@ -102,7 +95,5 @@ int	locate_player_collect(t_map *m)
 		}
 		y++;
 	}
-	if (m->c_cnt < 1 || m->e_cnt != 1 || m->p_cnt != 1)
-		return (0);
-	return (1);
+	return (!(m->c_cnt < 1 || m->e_cnt != 1 || m->p_cnt != 1));
 }

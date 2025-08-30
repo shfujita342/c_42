@@ -1,36 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:55:44 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 13:11:04 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/25 17:57:32 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 21:00:11 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "so_long.h"
 
-static int	arg_error(void)
+void	ft_bzero(void *s, size_t n)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd("Usage: ./so_long maps/xxx.ber\n", 2);
-	return (1);
-}
+	unsigned char	*ptr;
+	size_t			i;
 
-int	main(int argc, char **argv)
-{
-	t_game	g;
-
-	if (argc != 2)
-		return (arg_error());
-	if (init_game(&g, argv[1]) == 0)
-		print_error("init failed");
-	render(&g);
-	mlx_hook(g.win, 2, 1L, on_key, &g);
-	mlx_hook(g.win, 17, 0, on_close, &g);
-	mlx_loop(g.mlx);
-	return (0);
+	i = 0;
+	ptr = (unsigned char *)s;
+	while (i < n)
+	{
+		ptr[i] = 0;
+		i++;
+	}
 }

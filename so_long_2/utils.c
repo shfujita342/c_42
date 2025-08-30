@@ -6,40 +6,11 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 15:01:19 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/29 17:11:17 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/30 18:41:06 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	while (s && s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	size_t	len;
-	char	*p;
-
-	len = ft_strlen(s);
-	p = (char *)safe_malloc(len + 1);
-	memcpy(p, s, len);
-	p[len] = '\0';
-	return (p);
-}
-
-void	putstr_fd(const char *s, int fd)
-{
-	if (!s)
-		return ;
-	write(fd, s, ft_strlen(s));
-}
 
 void	*safe_malloc(size_t size)
 {
@@ -65,4 +36,17 @@ char	**dup_grid(char **grid, int h)
 	}
 	dup[i] = NULL;
 	return (dup);
+}
+
+// gnl の内部スタッシュを解放させるため、EOFまで読み切る
+void	gnl_drain(int fd)
+{
+	char	*s;
+
+	s = get_next_line(fd);
+	while (s)
+	{
+		free(s);
+		s = get_next_line(fd);
+	}
 }

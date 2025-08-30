@@ -1,25 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 15:02:33 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:51 by shfujita         ###   ########.fr       */
+/*   Created: 2025/05/03 13:41:47 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 17:57:51 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "so_long.h"
+#include <unistd.h>
 
-void	print_error(const char *msg)
+void	ft_putnbr_fd(int n, int fd)
 {
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
+	char	c;
+
+	if (n == -2147483648)
 	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
+		write(fd, "-2147483648", 11);
+		return ;
 	}
-	exit(1);
+	if (n < 0)
+	{
+		write(fd, "-", 1);
+		n *= -1;
+	}
+	if (n >= 10)
+		ft_putnbr_fd(n / 10, fd);
+	c = n % 10 + '0';
+	write(fd, &c, 1);
 }

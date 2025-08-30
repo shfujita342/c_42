@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 15:02:33 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:51 by shfujita         ###   ########.fr       */
+/*   Created: 2025/05/03 13:45:02 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/03 21:47:05 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "so_long.h"
-
-void	print_error(const char *msg)
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
+	unsigned int	i;
+
+	i = 0;
+	if (!s || !f)
+		return ;
+	while (s[i])
 	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
+		f(i, &s[i]);
+		i++;
 	}
-	exit(1);
 }

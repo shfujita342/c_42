@@ -1,25 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 15:02:33 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:51 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 16:48:34 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/01 22:06:17 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "so_long.h"
-
-void	print_error(const char *msg)
+char	*ft_strrchr(const char *str, int c)
 {
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
+	char			*out;
+	unsigned char	find;
+
+	find = (unsigned char)c;
+	out = 0;
+	while (*str)
 	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
+		if (*str == find)
+			out = (char *)str;
+		str++;
 	}
-	exit(1);
+	if (!*str && find == '\0')
+		return ((char *)str);
+	return (out);
 }

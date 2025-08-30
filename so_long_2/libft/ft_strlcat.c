@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:55:44 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 13:11:04 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 15:41:57 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/10 13:22:47 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "so_long.h"
 
-static int	arg_error(void)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd("Usage: ./so_long maps/xxx.ber\n", 2);
-	return (1);
-}
+	size_t	dst_len;
+	size_t	src_len;
+	size_t	i;
 
-int	main(int argc, char **argv)
-{
-	t_game	g;
-
-	if (argc != 2)
-		return (arg_error());
-	if (init_game(&g, argv[1]) == 0)
-		print_error("init failed");
-	render(&g);
-	mlx_hook(g.win, 2, 1L, on_key, &g);
-	mlx_hook(g.win, 17, 0, on_close, &g);
-	mlx_loop(g.mlx);
-	return (0);
+	dst_len = 0;
+	src_len = 0;
+	i = 0;
+	while (dst_len < size && dst[dst_len])
+		dst_len++;
+	src_len = ft_strlen(src);
+	if (dst_len == size)
+		return (size + src_len);
+	while (dst_len + i < size - 1 && src[i])
+	{
+		dst[dst_len + i] = src[i];
+		i++;
+	}
+	dst[dst_len + i] = '\0';
+	return (dst_len + src_len);
 }

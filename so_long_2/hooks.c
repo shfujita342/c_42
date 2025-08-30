@@ -6,7 +6,7 @@
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/29 14:59:55 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/29 15:00:33 by shfujita         ###   ########.fr       */
+/*   Updated: 2025/08/30 20:23:56 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void	print_moves(int mv)
 {
-	putstr_fd("moves: ", 1);
-	putnbr_fd(mv, 1);
-	putstr_fd("\n", 1);
+	ft_putstr_fd("moves: ", 1);
+	ft_putnbr_fd(mv, 1);
+	ft_putstr_fd("\n", 1);
 }
 
 static int	can_step(t_game *g, int nx, int ny)
@@ -71,7 +71,10 @@ int	on_key(int key, t_game *g)
 	else if (key == KEY_D || key == KEY_RIGHT)
 		nx++;
 	if (can_step(g, nx, ny))
+	{
+		mlx_clear_window(g->mlx, g->win);
 		step_to(g, nx, ny);
+	}
 	return (0);
 }
 

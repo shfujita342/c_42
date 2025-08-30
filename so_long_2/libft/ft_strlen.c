@@ -1,25 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 15:02:33 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 14:47:51 by shfujita         ###   ########.fr       */
+/*   Created: 2025/04/28 15:18:28 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/09 20:41:43 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
-#include "so_long.h"
+#include <string.h>
 
-void	print_error(const char *msg)
+size_t	ft_strlen(char *str)
 {
-	ft_putstr_fd("Error\n", 2);
-	if (msg)
-	{
-		ft_putstr_fd((char *)msg, 2);
-		ft_putstr_fd("\n", 2);
-	}
-	exit(1);
+	size_t	len;
+
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }

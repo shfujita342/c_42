@@ -1,36 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/29 14:55:44 by shfujita          #+#    #+#             */
-/*   Updated: 2025/08/30 13:11:04 by shfujita         ###   ########.fr       */
+/*   Created: 2025/05/05 15:46:56 by shfujita          #+#    #+#             */
+/*   Updated: 2025/05/07 16:09:13 by shfujita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "so_long.h"
 
-static int	arg_error(void)
+t_list	*ft_lstnew(void *content)
 {
-	ft_putstr_fd("Error\n", 2);
-	ft_putstr_fd("Usage: ./so_long maps/xxx.ber\n", 2);
-	return (1);
-}
+	t_list	*node;
 
-int	main(int argc, char **argv)
-{
-	t_game	g;
-
-	if (argc != 2)
-		return (arg_error());
-	if (init_game(&g, argv[1]) == 0)
-		print_error("init failed");
-	render(&g);
-	mlx_hook(g.win, 2, 1L, on_key, &g);
-	mlx_hook(g.win, 17, 0, on_close, &g);
-	mlx_loop(g.mlx);
-	return (0);
+	node = malloc(sizeof(t_list));
+	if (!node)
+		return (NULL);
+	node->content = content;
+	node->next = NULL;
+	return (node);
 }
