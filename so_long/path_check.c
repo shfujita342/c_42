@@ -1,0 +1,97 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   path_check.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: shfujita <shfujita@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/29 14:58:48 by shfujita          #+#    #+#             */
+/*   Updated: 2025/08/31 12:28:42 by shfujita         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+void	dfs(t_dfsctx *c, int x, int y)
+{
+	if (x < 0 || y < 0 || x >= c->w || y >= c->h)
+		return ;
+	if (c->g[y][x] == '1' || c->g[y][x] == 'V')
+		return ;
+	if (c->block_exit && c->g[y][x] == 'E')
+		return ;
+	c->g[y][x] = 'V';
+	dfs(c, x + 1, y);
+	dfs(c, x - 1, y);
+	dfs(c, x, y + 1);
+	dfs(c, x, y - 1);
+}
+
+int	all_c_reached(t_dfsctx *c)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < c->h)
+	{
+		x = 0;
+		while (x < c->w)
+		{
+			if (c->g[y][x] == 'C')
+				return (0);
+			x++;
+		}
+		y++;
+	}
+	return (1);
+}
+
+int	exit_reachable(t_dfsctx *c, char **orig)
+{
+	int	y;
+	int	x;
+
+	y = 0;
+	while (y < c->h)
+	{
+		x = 0;
+		while (x < c->w)
+		{
+			if (orig[y][x] == 'E')
+			{
+				if ((y > 0 && c->g[y - 1][x] == 'V') || (y + 1 < c->h && c->g[y
+						+ 1][x] == 'V') || (x > 0 && c->g[y][x - 1] == 'V')
+					|| (x + 1 < c->w && c->g[y][x + 1] == 'V'))
+					return (1);
+				return (0);
+			}
+			x++;
+		}
+		y++;
+	}
+	return (0);
+}
+
+int	check_path(t_map *m)
+{
+	char		**g;
+	t_dfsctx	c;
+
+	g = dup_grid(m->grid, m->h);
+	if (!g)
+		return (0);
+	c.g = g;
+	c.w = m->w;
+	c.h = m->h;
+	c.block_exit = 1;
+	g[m->p_y][m->p_x] = '0';
+	dfs(&c, m->p_x, m->p_y);
+	if (!all_c_reached(&c) || !exit_reachable(&c, m->grid))
+	{
+		free_grid(g, m->h);
+		return (0);
+	}
+	free_grid(g, m->h);
+	return (1);
+}
